@@ -1,0 +1,1 @@
+export default function Page(){return(<div className="space-y-4"><h1 className="text-2xl font-semibold">Aide</h1><div className="card space-y-2 text-slate-300"><p>Ajoutez chaque joueur avec sa contribution en UEC.</p><p>Saisissez le montant total de la vente.</p><p>Par défaut le receveur paie les frais (mode « Frais déduits »).</p></div></div>)}

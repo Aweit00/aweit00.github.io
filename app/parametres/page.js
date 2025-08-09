@@ -1,0 +1,5 @@
+"use client";import {useEffect,useState} from "react";
+export default function Page(){const[siteName,setSiteName]=useState("");const[accent,setAccent]=useState("#0ea5e9");
+useEffect(()=>{const s=localStorage.getItem("site-settings");if(s){try{const o=JSON.parse(s);setSiteName(o.siteName??"");setAccent(o.accent??"#0ea5e9");}catch{}}},[]);
+useEffect(()=>{localStorage.setItem("site-settings",JSON.stringify({siteName,accent}));document.documentElement.style.setProperty("--accent",accent);},[siteName,accent]);
+return(<div className="space-y-4"><h1 className="text-2xl font-semibold">Paramètres</h1><div className="card space-y-4"><div><div className="text-sm text-slate-400">Nom du site</div><input className="input mt-2" value={siteName} onChange={e=>setSiteName(e.target.value)} placeholder="AWEIT — Hub Jeux"/></div><div><div className="text-sm text-slate-400">Couleur d'accent</div><input className="input mt-2" type="color" value={accent} onChange={e=>setAccent(e.target.value)}/></div><div className="text-xs text-slate-500">Ces réglages restent dans votre navigateur.</div></div></div>);}
