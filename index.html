@@ -1,1 +1,175 @@
-<!doctype html><html lang="fr"><meta charset="utf-8"><title>AWEIT</title><h1 style="font:16px system-ui">AWEIT en ligne ✅</h1></html>
+<!doctype html><html lang="fr"><head>
+<meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>AWEIT — Star Citizen Profit Splitter</title>
+<style>
+:root{--bg:#0b1220;--panel:#0e1628;--panel2:#0d1426;--txt:#e5e7eb;--muted:#94a3b8;--accent:#0ea5e9}
+*{box-sizing:border-box}html,body{height:100%}body{margin:0;background:var(--bg);color:var(--txt);font:14px/1.45 system-ui,Segoe UI,Roboto,Helvetica,Arial}
+.container{min-height:100vh;display:flex}
+.aside{width:260px;background:var(--panel2);border-right:1px solid #ffffff1a;padding:22px 12px}
+.brand{display:flex;align-items:center;gap:8px;font-weight:600}
+.brand-dot{width:10px;height:10px;border-radius:9999px;background:var(--accent)}
+.nav{margin-top:14px}.nav a{display:flex;gap:10px;padding:10px 12px;border-radius:12px;color:#cbd5e1;text-decoration:none}
+.nav a.active,.nav a:hover{background:#ffffff0d;color:#fff}
+.header{position:sticky;top:0;background:#0b1220cc;backdrop-filter:saturate(140%) blur(6px);border-bottom:1px solid #ffffff1a}
+.header-in{max-width:1100px;margin:0 auto;padding:14px 20px;display:flex;justify-content:space-between;align-items:center}
+.main{flex:1}.page{max-width:1100px;margin:0 auto;padding:22px}
+.card{background:var(--panel);border:1px solid #ffffff1a;border-radius:16px;padding:16px}
+.row{display:grid;grid-template-columns:1fr;gap:16px}
+@media(min-width:860px){.row{grid-template-columns:320px 1fr}}
+.input{width:100%;background:#0b1220;border:1px solid #ffffff1a;border-radius:12px;padding:10px 12px;color:#fff}
+.btn{display:inline-flex;align-items:center;justify-content:center;border:1px solid #ffffff1a;border-radius:10px;padding:9px 12px;color:#fff;background:#0000;cursor:pointer}
+.btn.primary{background:var(--accent);border:none}
+.badge{display:inline-flex;align-items:center;border:1px solid #ffffff1a;border-radius:9999px;padding:3px 8px;font-size:12px;color:#cbd5e1}
+.table{width:100%;border-collapse:collapse}
+.table th,.table td{padding:8px 10px;border-bottom:1px solid #ffffff0d;text-align:right;white-space:nowrap}
+.table th:first-child,.table td:first-child{text-align:left}
+.muted{color:var(--muted)} .space{height:8px}
+</style>
+</head><body>
+<div class="container">
+  <aside class="aside">
+    <div class="brand"><div class="brand-dot"></div><div>AWEIT</div></div>
+    <div class="muted" style="margin-top:2px;font-size:12px">Hub Jeux</div>
+    <nav class="nav" style="margin-top:12px">
+      <a class="active" href="#">🚀 Star Citizen — Profit Splitter</a>
+    </nav>
+  </aside>
+
+  <div class="main">
+    <header class="header"><div class="header-in">
+      <div style="display:flex;gap:8px;align-items:center">
+        <div style="width:8px;height:8px;border-radius:9999px;background:#34d399"></div>
+        <div class="muted" style="font-size:13px">GitHub Pages — aweit00.github.io</div>
+      </div>
+      <nav class="muted" style="font-size:13px">Accueil</nav>
+    </div></header>
+
+    <div class="page">
+      <div class="row">
+        <section class="card">
+          <div class="muted" style="font-size:13px">Nom de session</div>
+          <input id="session" class="input" placeholder="Ex: Quartzite @ ARC-L1">
+          <div class="space"></div>
+          <div class="muted" style="font-size:13px">Montant de vente total (UEC)</div>
+          <input id="sale" class="input" inputmode="decimal" placeholder="Ex: 1 250 000">
+          <div class="space"></div>
+          <div class="muted" style="font-size:13px">Frais d'envoi (%)</div>
+          <input id="fee" class="input" inputmode="decimal" value="0.5">
+          <div class="space"></div>
+          <div class="muted" style="font-size:13px">Mode de frais</div>
+          <div style="margin-top:8px;display:flex;gap:8px;flex-wrap:wrap">
+            <button id="modeUp" class="btn">Moi je paie les frais</button>
+            <button id="modeDeduct" class="btn primary">Frais déduits (receveur)</button>
+          </div>
+          <div class="space"></div>
+          <div class="badge">Profit = Vente − Σ contributions</div>
+          <div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap">
+            <button id="reset" class="btn">Réinitialiser</button>
+          </div>
+        </section>
+
+        <section class="card">
+          <div class="muted" style="font-size:13px">Ajouter un joueur</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr auto;gap:8px;margin-top:8px">
+            <input id="pName" class="input" placeholder="Pseudo joueur">
+            <input id="pAmount" class="input" inputmode="decimal" placeholder="Contribution (UEC)">
+            <button id="add" class="btn primary">Ajouter</button>
+          </div>
+
+          <div style="overflow-x:auto;margin-top:16px">
+            <table class="table" id="tbl">
+              <thead class="muted">
+                <tr>
+                  <th>Joueur</th>
+                  <th>Contribution</th>
+                  <th>Part</th>
+                  <th>Bénéfice brut</th>
+                  <th>À envoyer</th>
+                  <th>Frais</th>
+                  <th>Ils reçoivent</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody id="rows"><tr><td colspan="8" class="muted" style="text-align:center;padding:18px">Ajoutez des joueurs pour commencer.</td></tr></tbody>
+              <tfoot id="foot" style="display:none">
+                <tr style="font-weight:600">
+                  <td style="text-align:right">Totals</td>
+                  <td id="tContrib"></td>
+                  <td>—</td>
+                  <td id="tProfit"></td>
+                  <td id="tSend"></td>
+                  <td id="tFees" class="muted"></td>
+                  <td id="tNet"></td>
+                  <td></td>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+        </section>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const fmt = n => isFinite(n)? new Intl.NumberFormat("fr-FR",{maximumFractionDigits:2}).format(n)+" UEC" : "—";
+let players = [];
+let feeMode = "deduct";
+const els = id => document.getElementById(id);
+function save(){localStorage.setItem("aweit-sc", JSON.stringify({players, feeMode, fee: els("fee").value, sale: els("sale").value, session: els("session").value}))}
+function load(){try{const s=JSON.parse(localStorage.getItem("aweit-sc")||"{}");players=s.players||[];feeMode=s.feeMode||"deduct";els("fee").value=s.fee||"0.5";els("sale").value=s.sale||"";els("session").value=s.session||"";uiMode();render()}catch{}}
+
+function uiMode(){els("modeUp").classList.toggle("primary", feeMode==="grossUp");els("modeDeduct").classList.toggle("primary", feeMode==="deduct")}
+function add(){const name=(els("pName").value||"").trim();const amount=Number((els("pAmount").value||"").replace(',','.'));if(!name||!isFinite(amount))return;players.push({name,amount});els("pName").value="";els("pAmount").value="";render();save()}
+function removeIdx(i){players.splice(i,1);render();save()}
+function resetAll(){players=[];els("pName").value="";els("pAmount").value="";els("sale").value="";els("fee").value="0.5";feeMode="deduct";els("session").value="";localStorage.removeItem("aweit-sc");uiMode();render()}
+
+function render(){
+  const rowsEl = els("rows"); rowsEl.innerHTML="";
+  const sale = Number((els("sale").value||"").replace(',','.'))||0;
+  const fee = Math.max(0, Number((els("fee").value||"").replace(',','.'))||0)/100;
+  const totalContrib = players.reduce((a,p)=>a+(Number(p.amount)||0),0);
+  const profit = sale - totalContrib;
+
+  if(players.length===0){
+    rowsEl.innerHTML='<tr><td colspan="8" class="muted" style="text-align:center;padding:18px">Ajoutez des joueurs pour commencer.</td></tr>';
+    document.getElementById("foot").style.display="none";
+    return;
+  }
+  let tSend=0, tFees=0, tNet=0;
+  players.forEach((p,i)=>{
+    const contrib=Number(p.amount)||0;
+    const share = totalContrib>0 ? contrib/totalContrib : 0;
+    const grossShare = profit*share;
+    const sendAmount = feeMode==="grossUp" ? (grossShare<=0?grossShare:grossShare/(1-fee)) : grossShare;
+    const feeAmount = Math.max(0, sendAmount)*fee;
+    const receivedNet = feeMode==="grossUp" ? grossShare : sendAmount*(1-fee);
+    tSend+=sendAmount; tFees+=feeAmount; tNet+=receivedNet;
+    const tr=document.createElement("tr");
+    tr.innerHTML = `
+      <td style="text-align:left">${p.name}</td>
+      <td>${fmt(contrib)}</td>
+      <td>${(share*100).toFixed(2)}%</td>
+      <td>${fmt(grossShare)}</td>
+      <td>${fmt(sendAmount)}</td>
+      <td class="muted">${fmt(feeAmount)}</td>
+      <td>${fmt(receivedNet)}</td>
+      <td><button class="btn" onclick="removeIdx(${i})">Suppr.</button></td>`;
+    rowsEl.appendChild(tr);
+  });
+  document.getElementById("tContrib").textContent = fmt(totalContrib);
+  document.getElementById("tProfit").textContent = fmt(profit);
+  document.getElementById("tSend").textContent = fmt(tSend);
+  document.getElementById("tFees").textContent = fmt(tFees);
+  document.getElementById("tNet").textContent = fmt(tNet);
+  document.getElementById("foot").style.display="";
+}
+
+document.getElementById("add").onclick=add;
+document.getElementById("reset").onclick=resetAll;
+document.getElementById("modeUp").onclick=()=>{feeMode="grossUp";uiMode();render();save()};
+document.getElementById("modeDeduct").onclick=()=>{feeMode="deduct";uiMode();render();save()};
+["sale","fee"].forEach(id=>els(id).addEventListener("input",()=>{render();save()}));
+load();
+</script>
+</body></html>
